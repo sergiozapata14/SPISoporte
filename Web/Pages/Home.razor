@@ -1,0 +1,53 @@
+﻿@page "/buscar"
+@using System.Net.Http.Json
+@using Logica
+@using MudBlazor
+@inject HttpClient Http
+
+<MudTextField @bind-Value="accountNumber" Label="Account Number" />
+<MudButton OnClick="Buscar">Buscar</MudButton>
+
+@if (ShowDataGrid)
+{
+    <MudTable Items="userData" Hover="true">
+        <HeaderContent>
+            <MudTh>Usuario</MudTh>
+            <MudTh>Cuenta</MudTh>
+            <MudTh>Tipo</MudTh>
+            <MudTh>Empleado</MudTh>
+            <MudTh>Tienda</MudTh>
+            <MudTh>Estado</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.UserName</MudTd>
+            <MudTd>@context.AccountNumber</MudTd>
+            <MudTd>@context.AccountType</MudTd>
+            <MudTd>@context.EmployeeNumber</MudTd>
+            <MudTd>@context.StoreId</MudTd>
+            <MudTd>@context.Status</MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+
+@code {
+    private string accountNumber;
+    private bool ShowDataGrid;
+    [Inject] private UserProfileLogica logica { get; set; }
+    private List<Entidades.UserProfile> userData { get; set; }
+    protected override Task OnInitializedAsync()
+    {
+        ShowDataGrid = false;
+        userData = new List<Entidades.UserProfile>();
+        return base.OnInitializedAsync();
+    }
+
+    private async Task Buscar()
+    {
+        userData = logica.BuscarPorAccountNumber(accountNumber);
+
+        if(userData.Count > 0)
+        {
+            ShowDataGrid = true;
+        }
+    }
+}
