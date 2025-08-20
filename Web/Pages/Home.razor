@@ -1,0 +1,30 @@
+﻿@page "/home"
+@inherits HomeBase
+
+<MudTextField Label="Account Number" @bind-Value="AccountNumber" />
+<MudButton OnClick="Buscar">Buscar</MudButton>
+
+<MudTable Items="UserProfiles" Dense="true">
+    <HeaderContent>
+        <MudTh>User ID</MudTh>
+        <MudTh>User Name</MudTh>
+        <MudTh>Account Number</MudTh>
+        <MudTh>Account Type</MudTh>
+        <MudTh>Employee Number</MudTh>
+        <MudTh>Store ID</MudTh>
+        <MudTh>Checked</MudTh>
+        <MudTh>Validation Date</MudTh>
+        <MudTh>Status</MudTh>
+    </HeaderContent>
+    <RowTemplate Context="user">
+        <MudTd DataLabel="User ID">@user.UserId</MudTd>
+        <MudTd DataLabel="User Name">@user.UserName</MudTd>
+        <MudTd DataLabel="Account Number">@user.AccountNumber</MudTd>
+        <MudTd DataLabel="Account Type">@user.AccountType</MudTd>
+        <MudTd DataLabel="Employee Number">@user.EmployeeNumber</MudTd>
+        <MudTd DataLabel="Store ID">@user.StoreId</MudTd>
+        <MudTd DataLabel="Checked">@user.Checked</MudTd>
+        <MudTd DataLabel="Validation Date">@user.ValidationDate</MudTd>
+        <MudTd DataLabel="Status">@user.Status</MudTd>
+    </RowTemplate>
+</MudTable>
